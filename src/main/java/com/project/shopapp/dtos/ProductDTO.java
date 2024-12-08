@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @AllArgsConstructor
@@ -18,11 +19,14 @@ public class ProductDTO {
     @Max(value = 10000000, message = "Price must be less than or equal to 10,000,000")
     private Float price;
 
+    //thumbnail là để chứa tên filename unique
     private String thumbnail;
 
     private String description;
 
     @JsonProperty("category_id")
     private String categoryId;
+
+    private MultipartFile file;
 
 }
