@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,10 +46,20 @@ public class ProductController {
                 return ResponseEntity.badRequest().body(errorMessages);
             }
 
-            //Check file size and format
-            MultipartFile file = product.getFile();
+            //List MultipartFile object to get list of files from productDTO
+            List<MultipartFile> files = product.getFiles();
 
-            if(file != null) {
+            //When null, an exception will be thrown when entering the loop -> Fix null error
+            files = files == null ? new ArrayList<MultipartFile>() : files;
+
+            //Loop through each element in the file list
+            for (MultipartFile file : files) {
+                //If the client enters an empty file, it will be considered as 1 file and throw UNSUPPORTED_MEDIA_TYPE -> Fix the error
+                if(file.getSize() == 0) {
+                    continue;
+                }
+
+                //Check file size and format
                 if(file.getSize() > 10 * 1024 * 1024) {
                     return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
                             .body("File is too large! Maximum size is 10MB.");
@@ -62,11 +73,11 @@ public class ProductController {
                 //Save file and update thumbnail in DTO
                 String fileName = storeFile(file);
 
-                //Save to product object in database -> do it later
+                //Save to product object in database -> do it later (it will be saved to table "product_iamges")
 
             }
 
-            return ResponseEntity.ok("This is insertProduct " + product.getName());
+            return ResponseEntity.ok(String.format("This is insertProduct %s successfully", product.getName()));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
