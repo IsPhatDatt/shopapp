@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/categories")
+@RequestMapping("${api.prefix}/categories")
 //@Validated
 public class CategoryController {
 
@@ -42,13 +42,13 @@ public class CategoryController {
 
     //http://localhost:8088/api/v1/categories/7
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateCategory(@PathVariable Long id) {
+    public ResponseEntity<String> updateCategory(@PathVariable int id) {
         return ResponseEntity.ok(String.format("updateCategory with id = %d", id));
     }
 
     //http://localhost:8088/api/v1/categories/7
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCategory(@PathVariable Long id) {
+    public ResponseEntity<String> deleteCategory(@PathVariable int id) {
         return ResponseEntity.ok(String.format("deleteCategory with id = %d", id));
     }
 }

@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/products")
+@RequestMapping("${api.prefix}/products")
 public class ProductController {
     //http://localhost:8088/api/v1/products?page=1&limit=10
     @GetMapping("")
@@ -117,16 +117,16 @@ public class ProductController {
 //        "category_id": 1
 //    }
 
-    //http://localhost:8088/api/v1/products/7A
+    //http://localhost:8088/api/v1/products/7
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateProduct(@PathVariable String id) {
-        return ResponseEntity.ok(String.format("updateProduct with id = %s", id));
+    public ResponseEntity<String> updateProduct(@PathVariable int id) {
+        return ResponseEntity.ok(String.format("updateProduct with id = %d", id));
     }
 
     //http://localhost:8088/api/v1/products/7
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable String id) {
-        return ResponseEntity.ok(String.format("deleteProduct with id = %s", id));
+    public ResponseEntity<String> deleteProduct(@PathVariable int id) {
+        return ResponseEntity.ok(String.format("deleteProduct with id = %d", id));
     }
 
 }
