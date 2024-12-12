@@ -31,8 +31,8 @@ public class OrderController {
         }
     }
 
-    //http://localhost:8088/api/v1/orders/7
-    @GetMapping("/{user_id}") //add variable on path
+    //http://localhost:8088/api/v1/orders/user/7
+    @GetMapping("/user/{user_id}") //add variable on path
     public ResponseEntity<?> getOrders(@PathVariable("user_id") int id) {
         try {
             return ResponseEntity.ok("Get the order list from user_id");
