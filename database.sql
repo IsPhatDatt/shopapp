@@ -120,6 +120,10 @@ ALTER TABLE orders ADD COLUMN `payment_method` VARCHAR(100);
 
 ALTER TABLE orders ADD COLUMN active TINYINT(1);
 
+--Sửa trường active thành trường is_active
+
+ALTER TABLE orders CHANGE active is_active TINYINT(1);
+
 --Trạng thái đơn hàng chỉ được phép nhận một số giá trị cụ thể
 
 ALTER TABLE orders 

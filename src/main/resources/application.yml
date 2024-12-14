@@ -2,10 +2,28 @@ server:
   port: 8088
 
 spring:
+  #Configuration to connect Mysql database with Java Spring
+  datasource:
+    url: jdbc:mysql://localhost:3306/shopapp?useSSL=false&serverTimezone=UTC
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+
+  #Configure to control upload file size and limit DoS (Denial of Service) attacks by sending too large requests.
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
 
+#Configure to define prefixes for application APIs, helping to organize and manage endpoints (URLs) more clearly.
 api:
   prefix: api/v1
